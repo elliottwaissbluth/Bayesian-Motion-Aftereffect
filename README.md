@@ -40,15 +40,21 @@ The aperture problem arises when velocity is estimated for a windowed stimulus. 
 
 Taking the first-order Taylor series expansion around <img src="https://render.githubusercontent.com/render/math?math=(x, y, t)">, subtracting <img src="https://render.githubusercontent.com/render/math?math=I(x, y, t)"> from both sides, dividing through by <img src="https://render.githubusercontent.com/render/math?math=\partial t">, then taking the limit as <img src="https://render.githubusercontent.com/render/math?math=\partial t">  goes to 0, we have
 
-$$\frac{d x}{dt} \frac{\partial I}{\partial x} + \frac{dy}{dt} \frac{\partial I}{\partial y} + \frac{\partial I}{\partial y} = 0$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/3.png?raw=true">
+</p>
 
 or in terms of velocity
 
-$$I_x v_x + I_y v_y + I_t = 0$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/4.png?raw=true">
+</p>
 
 We can use this to write the equation of the velocity constraint line.
 
-$$v_y = -\frac{I_x v_x + I_t}{I_y}$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/5.png?raw=true">
+</p>
 
 <p align="center">
   <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/vconstraint.png?raw=true">
@@ -76,30 +82,35 @@ Figure 3 shows activation in the MT region of human cortical area over time. In 
 
 Weiss et. al, like most optical flow models, assume an brightness constraint as seen in the above equations. Under this assumption, an object that moves may change position but not brightness, leaving the intensity function same with a delta change. Formally, this can be written as
 
- 
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/6.png?raw=true">
+</p>
 
-$$I(x, y, t) = I(x+\Delta x, y+\Delta y, t + \Delta t)$$
+<img src="https://render.githubusercontent.com/render/math?math=dx"> and <img src="https://render.githubusercontent.com/render/math?math=dy"> can written in terms of <img src="https://render.githubusercontent.com/render/math?math=v_x"> and <img src="https://render.githubusercontent.com/render/math?math=dt">. Furthermore, there is noise in image perception [2], so we get the following equation 
 
-$dx$ and $dy$ can written in terms of $v_x$ and $dt$. Furthermore, there is noise in image perception [2], so we get the following equation 
-
-$$\implies I(x, y, t) = I(x + v_x \Delta t, y + v_y \Delta t, t +\Delta t) + \eta$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/7.png?raw=true">
+</p>
 
 The first order Taylor series expansion of the above equation results in
 
-$$\implies I(x + v_x \Delta t, y + v_y \Delta t, \Delta t) = I(x, y, t) + \frac{dI}{dx}v_x\Delta t + \frac{dI}{dy}v_y\Delta t + \frac{dI}{dt}\Delta t$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/8.png?raw=true">
+</p>
 
 Substituting in the previous equation:
 
-$$\sout{I(x, y, t)} = \sout{I(x, y, t)} + I_xv_x\Delta t + I_yv_y\Delta t + I_t\Delta t + \eta$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/9.png?raw=true">
+</p>
 
-$$I_xv_x\Delta t + I_yv_y\Delta t + I_t\Delta t + \eta
- = 0$$
+We can assume a Gaussian noise with standard deviation of <img src="https://render.githubusercontent.com/render/math?math=\sigma">, and the Weiss et. al paper assumes that velocity is constant over a Gaussian window w. Therefore, the probability of the intensity function for a  particular position can be written as
 
-We can assume a Gaussian noise with standard deviation of $\sigma$, and the Weiss et. al paper assumes that velocity is constant over a Gaussian window $w$. Therefore, the probability of the intensity function for a  particular position can be written as
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/10.png?raw=true">
+</p>
 
-$$P(I(x_i, y_i, t)|v_i) \propto exp \left( \frac{1}{2\sigma^2}\Sigma_x\Sigma_y w(x, y)_i \left(I_xv_x + I_yv_y +I_t\right)^2 dx dy \right)$$
-
-Unlike Weiss et. al, which assumes a Gaussian prior, since we are assuming the prior probability of the velocity, $v$, to be the posterior of the previous timestep. This results in the posterior estimation of velocity to be as follows
+Unlike Weiss et. al, which assumes a Gaussian prior, since we are assuming the prior probability of the velocity, v, to be the posterior of the previous timestep. This results in the posterior estimation of velocity to be as follows
 
 <p align="center">
   <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.png?raw=true">
@@ -108,7 +119,9 @@ Unlike Weiss et. al, which assumes a Gaussian prior, since we are assuming the p
   <b>Figure 4: Feedback model</b>
 </p>
  
-$$\implies P(v_i|I)_t = P(v_i|I)_{t-1}P(I|v_i)$$
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/11.png?raw=true">
+</p>
 
 Weiss et. al furthermore shows two key variables in deriving likelihood functions from an image sequence: contrast and shape.  These two variables are important features underlying errors in motion perception. We derived likelihood functions showing the distinction between these two variables to show how the velocity constraint line might change, and to prove that our likelihood functions accurately represented the given image. We used Sobel filters with 5x5 kernels for space derivatives and frame single frame subtraction to approximate time derivatives.
 
