@@ -19,9 +19,13 @@ $$argmax_vP(v|I) = argmax_vP(v)P(I|v)$$
 
 The two components of this equation ****are the prior, $P(v)$, and likelihood, $P(I|v)$. Most literature dealing with this topic assumes a Gaussian prior centered at zero velocity [1-3]. This is known as the *slow speed assumption*. It accounts for erroneous components brought about by the likelihood functions which guess unrealistically high velocities given a motion stimulus. The likelihood functions are derived using concepts borrowed from optical flow. To understand the likelihood functions, it is necessary to understand the aperture problem in optical flow. First, we will treat it intuitively. Consider the following figure:
 
-![Figure 1: The Aperture Problem](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/aperture_problem.png?raw=true)
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/aperture_problem.png?raw=true">
+</p>
+<p align="center">
+  <Figure 1: The Aperture Problem>
+</p>
 
-#### Figure 1: The Aperture Problem
 
 The aperture problem arises when velocity is estimated for a windowed stimulus. In the example in Figure 1, the grate is shown moving in three separate directions. However, viewed through the imposed circular window, all three grates produce the same image sequence. All you can say certainly of the velocity of the grate is the range of possible velocities it might have. The grate might be moving up, left, or somewhere in between; this range of these possible velocities is given by the velocity constraint line [4]. The velocity constraint line can be derived from an image subjected to the brightness constraint, that is, the brightness pattern of a patch of image displaced some distance $\Delta x$ in the x-direction and some distance $\Delta y$ in the y-direction will remain constant. We write this as follows
 
@@ -39,19 +43,25 @@ We can use this to write the equation of the velocity constraint line.
 
 $$v_y = -\frac{I_x v_x + I_t}{I_y}$$
 
-![Figure 2: Velocity Constraint Line](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/vconstraint.png?raw=true)
-
-#### Figure 2: Velocity Constraint Line
-
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/vconstraint.png?raw=true">
+</p>
+<p align="center">
+  <Figure 2: Velocity Constraint Line>
+</p>
+ 
 The velocity constraint line displayed in Figure 2 is the constraint line that might be derived from Figure 1. You will see in our methods section that the likelihood functions we derive will depend heavily on this equation although it does not present itself in the same form as described above.  For our simulations, the image space is sampled through Gaussian windows. These windows give rise to the aperture problem when centered around the edge of a stimulus, as in Figure 1. The resulting probability distributions are centered around the line described by the velocity constraint equation.
 
 ### Biological Evidence for the Motion Aftereffect
 
 It has been hypothesized that the motion aftereffect is directly observable in directionally sensitive neurons in human cortical area M [5]. The directionally sensitive neurons are neurons that activate when stimulated by a visual motion stimulus moving in a particular direction. To elucidate this, consider Figure 3.
 
-![Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/tootell.png?raw=true)
-
-#### Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/tootell.png?raw=true">
+</p>
+<p align="center">
+  <Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli>
+</p>
 
 Figure 3 shows activation in the MT region of human cortical area over time. In the sections labeled "Exp," subjects watched expanding concentric rings. In the section labeled "Exp/Con," the subjects watched expanding and contracting concentric rings. In sections labeled "Stat," the subjects watched static concentric rings, and reportedly felt a strong motion aftereffect. You can see that the activation does not drop off immediately after the moving stimulus is replaced by a static one. Rather, in leaky-integrator like fashion, the activation slowly drops back to baseline levels. The shaded areas under the curve represent the hypothesized regions of motion aftereffect. In this report, we will demonstrate how this effect naturally arises via a feedback loop from the posterior distribution to the prior distribution.
 
@@ -84,25 +94,32 @@ $$P(I(x_i, y_i, t)|v_i) \propto exp \left( \frac{1}{2\sigma^2}\Sigma_x\Sigma_y w
 
 Unlike Weiss et. al, which assumes a Gaussian prior, since we are assuming the prior probability of the velocity, $v$, to be the posterior of the previous timestep. This results in the posterior estimation of velocity to be as follows
 
-![Figure 4: Feedback model](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.png?raw=true)
-
-#### Figure 4: Feedback model
-
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.png?raw=true">
+</p>
+<p align="center">
+  <Figure 4: Feedback model>
+</p>
+ 
 $$\implies P(v_i|I)_t = P(v_i|I)_{t-1}P(I|v_i)$$
 
 Weiss et. al furthermore shows two key variables in deriving likelihood functions from an image sequence: contrast and shape.  These two variables are important features underlying errors in motion perception. We derived likelihood functions showing the distinction between these two variables to show how the velocity constraint line might change, and to prove that our likelihood functions accurately represented the given image. We used Sobel filters with 5x5 kernels for space derivatives and frame single frame subtraction to approximate time derivatives.
 
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/contrast_images.png?raw=true">
+</p>
+<p align="center">
+  <Figure 5: Effect of contrast>
+</p>
  
-
-![Figure 5: Effect of contrast ](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/contrast_images.png?raw=true)
-
-#### Figure 5: Effect of contrast 
-
 Figure 5 shows the likelihood functions derived from high contrast and low contrast images depicting a rhombus moving to the right. To simplify the example, we included samples from two points, though many more were summed to derive a posterior distribution in practice. As expected, the higher contrast image has a tighter likelihood while the lower contrast includes more noise. This matches the findings found in Weiss et. al regarding contrast. 
 
-![Figure 6: Effect of shape](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/shape%20effects.png?raw=true)
-
-#### Figure 6: Effect of shape 
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/shape%20effects.png?raw=true">
+</p>
+<p align="center">
+  <Figure 6: Effect of shape>
+</p>
 
 Similarly, Figure 6 shows the likelihood functions generated by changing the shape of the input, without changing the velocity. A fatter rhombus shows less range in the likelihood of the y-velocity, implying the motion will be more horizontal. This is contrary to the function generated by a skinnier rhombus, which shows  more uncertainty in the y-direction.  
 
@@ -114,17 +131,26 @@ The above equations were simulated using synthetic data. We used Jessica Hamrick
 
 Figure 7 shows the simulation for a Gaussian prior as suggested by the Weiss et. al paper and Figure 8 shows the simulation of a feedback prior. The second and third frames of the images are the likelihoods of the velocities at a given point. After a certain point in time, they become Gaussians centered at 0 emulating a change in motion from a moving object to a stationary object. You can imagine the input image sequence as a rhombus moving right then stopping, as in Figures 5, 6.
 
-![Figure 7: Posterior Estimation using Gaussian prior](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/gaussian.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/gaussian.gif?raw=true">
+</p>
+<p align="center">
+  <Figure 7: Posterior Estimation using Gaussian prior>
+</p>
 
-#### Figure 7: Posterior Estimation using Gaussian prior
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.gif?raw=true">
+</p>
+<p align="center">
+  <Figure 8: Posterior Estimation using feedback prior>
+</p>
 
-![Figure 8: Posterior Estimation using feedback prior](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.gif?raw=true)
-
-#### Figure 8: Posterior Estimation using feedback prior
-
-![Figure 9: Posterior estimation of velocity over time](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/leaky_int.png?raw=true)
-
-#### Figure 9: Posterior estimation of velocity over time
+<p align="center">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/leaky_int.png?raw=true">
+</p>
+<p align="center">
+  <Figure 9: Posterior estimation of velocity over time>
+</p>
 
 As can be seen from Figure 8, the posterior gradually gravitates to zero. Figure 9 further shows that this change in estimation looks like a leaky integrator. Velocity here is calculated as the distance of the posterior estimation to the origin. This result aligned to the observations from the Tootell et. al's paper on activations in the MT region with a motion aftereffect stimulus (see Figure 2).  
 
