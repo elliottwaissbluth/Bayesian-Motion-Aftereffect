@@ -11,7 +11,9 @@ The motion aftereffect is a well known illusion produced by scrolling motion. Af
 
 The motion aftereffect is produced when illusory opposite-direction motion is perceived of a still object after the mind has adapted to a particular set of motion vectors. The term "waterfall" describes the conditions by which the effect is created. If you fixate on a waterfall, its downwards motion is perceived and adapted to; look away and you will find any motionless environment to be warping upwards as if the motion of the water was caused by a scrolling background. This illusion is evident when you watch a wheel spin, drive long distances on the highway, or walk along a path. Steven Cholewiak has produced a poignant example of this effect, take a moment to watch it:
 
-[![The Motion Aftereffect](https://img.youtube.com/vi/jP_jYmbke14/0.jpg)](https://www.youtube.com/watch?v=jP_jYmbke14)
+<p align="center">
+  https://www.youtube.com/watch?v=jP_jYmbke14
+</p>
 
 To understand the mechanisms underlying motion aftereffect, it is useful to understand the brain's computational model of motion. An accurate model of visual motion perception was laid forth by Weiss et. al. in their paper *Motion Illusions as Optimal Percepts* [1]. This model fits a vast library of experimental data, demonstrating great viability to explain the actual underlying computations of the brain. Its distinguishing feature is its tendency to make the same mistakes humans do when evaluating motion data. At its core, the model is powered by an ideal observer. An ideal observer is a statistically informed decision maker based on Bayes' Rule. It acts on what it calculates to be the most probable outcome using whatever information it has. An ideal observer can make errors, but only to the degree that the most probable outcome does not reflect reality. In the case of motion perception, the ideal observer's job is to predict the velocity of an object given visual input from the retina. In more formal terms, the ideal observer selects the argument that maximizes the posterior probability of velocity given image data. This is described by the following equation:
 
@@ -30,15 +32,13 @@ The two components of this equation are the prior, P(v), and likelihood, P(I|v).
 </p>
 
 
-The aperture problem arises when velocity is estimated for a windowed stimulus. In the example in Figure 1, the grate is shown moving in three separate directions. However, viewed through the imposed circular window, all three grates produce the same image sequence. All you can say certainly of the velocity of the grate is the range of possible velocities it might have. The grate might be moving up, left, or somewhere in between; this range of these possible velocities is given by the velocity constraint line [4]. The velocity constraint line can be derived from an image subjected to the brightness constraint, that is, the brightness pattern of a patch of image displaced some distance $\Delta x$ in the x-direction and some distance <img src="https://render.githubusercontent.com/render/math?math=\Delta y"> in the y-direction will remain constant. We write this as follows
+The aperture problem arises when velocity is estimated for a windowed stimulus. In the example in Figure 1, the grate is shown moving in three separate directions. However, viewed through the imposed circular window, all three grates produce the same image sequence. All you can say certainly of the velocity of the grate is the range of possible velocities it might have. The grate might be moving up, left, or somewhere in between; this range of these possible velocities is given by the velocity constraint line [4]. The velocity constraint line can be derived from an image subjected to the brightness constraint, that is, the brightness pattern of a patch of image displaced some distance <img src="https://render.githubusercontent.com/render/math?math=\Delta x"> in the x-direction and some distance <img src="https://render.githubusercontent.com/render/math?math=\Delta y"> in the y-direction will remain constant. We write this as follows
 
 <p align="center">
-  <img src="https://render.githubusercontent.com/render/math?math=I(x,y,t) = I(x \p \Delta x, y + \Delta y, t + \Delta t)">
+  <img src="https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/LaTeX/2.png?raw=true">
 </p>
 
-$$I(x,y,t) = I(x+\Delta x, y + \Delta y, t + \Delta t)$$
-
-Taking the first-order Taylor series expansion around $(x, y, t)$, subtracting $I(x,y,t)$ from both sides, dividing through by $\partial t$, then taking the limit as $\partial t$  goes to $0$, we have
+Taking the first-order Taylor series expansion around <img src="https://render.githubusercontent.com/render/math?math=(x, y, t)">, subtracting <img src="https://render.githubusercontent.com/render/math?math=I(x, y, t)"> from both sides, dividing through by <img src="https://render.githubusercontent.com/render/math?math=\partial t">, then taking the limit as <img src="https://render.githubusercontent.com/render/math?math=\partial t">  goes to 0, we have
 
 $$\frac{d x}{dt} \frac{\partial I}{\partial x} + \frac{dy}{dt} \frac{\partial I}{\partial y} + \frac{\partial I}{\partial y} = 0$$
 
