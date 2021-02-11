@@ -19,9 +19,9 @@ $$argmax_vP(v|I) = argmax_vP(v)P(I|v)$$
 
 The two components of this equation ****are the prior, $P(v)$, and likelihood, $P(I|v)$. Most literature dealing with this topic assumes a Gaussian prior centered at zero velocity [1-3]. This is known as the *slow speed assumption*. It accounts for erroneous components brought about by the likelihood functions which guess unrealistically high velocities given a motion stimulus. The likelihood functions are derived using concepts borrowed from optical flow. To understand the likelihood functions, it is necessary to understand the aperture problem in optical flow. First, we will treat it intuitively. Consider the following figure:
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ff391a6b-0787-4b6a-b5aa-522b49ba2a44/aperture_problem.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ff391a6b-0787-4b6a-b5aa-522b49ba2a44/aperture_problem.png)
+![Figure 1: The Aperture Problem](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/aperture_problem.png?raw=true)
 
-Figure 1: The Aperture Problem
+#### Figure 1: The Aperture Problem
 
 The aperture problem arises when velocity is estimated for a windowed stimulus. In the example in Figure 1, the grate is shown moving in three separate directions. However, viewed through the imposed circular window, all three grates produce the same image sequence. All you can say certainly of the velocity of the grate is the range of possible velocities it might have. The grate might be moving up, left, or somewhere in between; this range of these possible velocities is given by the velocity constraint line [4]. The velocity constraint line can be derived from an image subjected to the brightness constraint, that is, the brightness pattern of a patch of image displaced some distance $\Delta x$ in the x-direction and some distance $\Delta y$ in the y-direction will remain constant. We write this as follows
 
@@ -39,9 +39,9 @@ We can use this to write the equation of the velocity constraint line.
 
 $$v_y = -\frac{I_x v_x + I_t}{I_y}$$
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5087854c-22f3-4527-ab7c-d0ecccd565c1/vconstraint.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5087854c-22f3-4527-ab7c-d0ecccd565c1/vconstraint.png)
+![Figure 2: Velocity Constraint Line](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/vconstraint.png?raw=true)
 
-Figure 2: Velocity Constraint Line
+#### Figure 2: Velocity Constraint Line
 
 The velocity constraint line displayed in Figure 2 is the constraint line that might be derived from Figure 1. You will see in our methods section that the likelihood functions we derive will depend heavily on this equation although it does not present itself in the same form as described above.  For our simulations, the image space is sampled through Gaussian windows. These windows give rise to the aperture problem when centered around the edge of a stimulus, as in Figure 1. The resulting probability distributions are centered around the line described by the velocity constraint equation.
 
@@ -49,9 +49,9 @@ The velocity constraint line displayed in Figure 2 is the constraint line that m
 
 It has been hypothesized that the motion aftereffect is directly observable in directionally sensitive neurons in human cortical area M [5]. The directionally sensitive neurons are neurons that activate when stimulated by a visual motion stimulus moving in a particular direction. To elucidate this, consider Figure 3.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4e5b2d3-d7ea-4b43-8dea-25fb8165c680/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4e5b2d3-d7ea-4b43-8dea-25fb8165c680/Untitled.png)
+![Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/tootell.png?raw=true)
 
-Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli
+#### Figure 3: MT Neuron Magnetic Resonance Response to Moving Stimuli
 
 Figure 3 shows activation in the MT region of human cortical area over time. In the sections labeled "Exp," subjects watched expanding concentric rings. In the section labeled "Exp/Con," the subjects watched expanding and contracting concentric rings. In sections labeled "Stat," the subjects watched static concentric rings, and reportedly felt a strong motion aftereffect. You can see that the activation does not drop off immediately after the moving stimulus is replaced by a static one. Rather, in leaky-integrator like fashion, the activation slowly drops back to baseline levels. The shaded areas under the curve represent the hypothesized regions of motion aftereffect. In this report, we will demonstrate how this effect naturally arises via a feedback loop from the posterior distribution to the prior distribution.
 
@@ -84,9 +84,9 @@ $$P(I(x_i, y_i, t)|v_i) \propto exp \left( \frac{1}{2\sigma^2}\Sigma_x\Sigma_y w
 
 Unlike Weiss et. al, which assumes a Gaussian prior, since we are assuming the prior probability of the velocity, $v$, to be the posterior of the previous timestep. This results in the posterior estimation of velocity to be as follows
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8bff887d-3546-4e8d-9315-4938c4843eb0/feedback.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8bff887d-3546-4e8d-9315-4938c4843eb0/feedback.png)
+![Figure 4: Feedback model](https://github.com/elliottwaissbluth/Bayesian-Motion-Aftereffect/blob/main/Final%20Report%20Figures/feedback.png?raw=true)
 
-Figure 4: Feedback model
+#### Figure 4: Feedback model
 
 $$\implies P(v_i|I)_t = P(v_i|I)_{t-1}P(I|v_i)$$
 
