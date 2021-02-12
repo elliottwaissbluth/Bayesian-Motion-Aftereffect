@@ -1,6 +1,8 @@
 # A Bayesian Framework for the Motion Aftereffect
 This repository contains the report and code behind my Neural Computation (VS265 @ UC Berkeley) final project. "A Bayesian Framework for the Motion Aftereffect"
 
+# Full Report
+Elliott Waissbluth, Akshara Methukupalli, Neal Aditya
 ## Abstract
 
 The motion aftereffect is a well known illusion produced by scrolling motion. After looking away from a scrolling stimulus, an observer will see a world that appears to be breathing and warping against the direction of the former motion. In Weiss et al., a Bayesian framework was introduced to model human motion perception. Their model was interesting because it produced the same errors in velocity estimation that humans make. We seek to expand this model to include a component of temporal feedback from the posterior to the prior through time. We show that our expansion naturally informs the motion aftereffect. This post discusses our implementation, results, and future considerations.
