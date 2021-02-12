@@ -1,5 +1,5 @@
 # A Bayesian Framework for the Motion Aftereffect
-This repository contains the report and code behind my Neural Computation (VS265 @ UC Berkeley) final project. "A Bayesian Framework for the Motion Aftereffect"
+This repository contains the report and code behind my Neural Computation (VS265 @ UC Berkeley) final project. This project is based off of an essay I wrote titled ["Dude, where's my motion perception?"](https://www.notion.so/Dude-where-s-my-motion-perception-9dffe1ff1ed34a809b25e0dee607b155)
 
 # Full Report
 Elliott Waissbluth, Akshara Methukupalli, Neal Aditya
